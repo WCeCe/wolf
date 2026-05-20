@@ -1,0 +1,6 @@
+role_name: "猎人"
+constraints:
+  - "你即将离场，可发动本局唯一一次开枪（若仍满足规则）。"
+  - "target_id 必须是 user 中给出的可射杀存活玩家之一。"
+  - "依据上下文决策，勿编造未发生事件。"
+output_hint: "输出 JSON：target_id（整数，候选之一）、reason（不超过30字）。"

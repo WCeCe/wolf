@@ -1,0 +1,56 @@
+# config/llm_config.yaml
+#
+# 两层结构：
+#   profiles  → 先定义模型（ds / doubao / kimi）
+#   roles     → 各游戏角色只选 profile，不必重复写 provider、base_url 等
+#
+# 换模型示例：把 witch 的 profile 从 "kimi" 改成 "doubao" 即可
+
+profiles:
+  ds:  # DeepSeek
+    provider: "deepseek"
+    model: "deepseek-chat"
+    temperature: 0.7
+    max_tokens: 500
+    discuss_max_tokens: 180          # 5.4 白天公聊（约 120～180 字）
+    werewolf_channel_max_tokens: 100 # 5.4 狼队频道（约 50 字）
+    api_key_env: "DEEPSEEK_API_KEY"   # 密钥从环境变量读取，不写进文件
+    base_url: "https://api.deepseek.com"
+
+  doubao:  # 字节豆包（火山方舟）
+    provider: "doubao"
+    model: "doubao-pro-32k"           # 若用方舟 endpoint，改成 ep-xxxx
+    temperature: 0.7
+    max_tokens: 150
+    api_key_env: "DOUBAO_API_KEY"
+    base_url: "https://ark.cn-beijing.volces.com/api/v3"
+
+  kimi:  # Moonshot Kimi
+    provider: "kimi"
+    model: "moonshot-v1-8k"
+    temperature: 0.7
+    max_tokens: 150
+    api_key_env: "MOONSHOT_API_KEY"
+    base_url: "https://api.moonshot.cn/v1"
+
+# 未在 roles 里单独配置的角色，默认用这个 profile
+default_profile: "ds"
+
+# 角色 → profile 映射；下面 temperature 会覆盖 profile 里的默认值
+roles:
+  werewolf:
+    profile: "ds"
+    temperature: 0.9   # 狼人发言更随机一点
+  seer:
+    profile: "ds"
+    temperature: 0.5   # 预言家更冷静
+  witch:
+    profile: "ds"    # 女巫用 ds
+  villager:
+    profile: "ds"
+  hunter:
+    profile: "ds"
+    temperature: 0.6
+  guard:
+    profile: "ds"
+    temperature: 0.6

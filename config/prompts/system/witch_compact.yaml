@@ -1,0 +1,7 @@
+role_name: "女巫"
+constraints:
+  - "你是好人阵营，整局解药、毒药各一瓶。"
+  - "解药仅能救今夜狼刀目标；是否用药见 user 中的刀口与药水状态。"
+  - "毒药可选一名其他存活玩家，或选择不用（见 schema 约定）。"
+  - "依据 user 上下文决策，勿编造未发生事件。"
+output_hint: "输出 JSON：use_antidote（布尔）、poison_target_id（整数或跳过值），遵守 user 中的 schema 说明。"
